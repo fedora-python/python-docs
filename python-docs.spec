@@ -13,7 +13,7 @@
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 101
+Release: 102
 License: PSF - see LICENSE
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -29,7 +29,7 @@ Provides: python2-docs = %{version}
 %endif
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildPrereq: tetex-latex, %{python}
+BuildPrereq: tetex-latex, %{python}, latex2html
 URL: http://www.python.org/
 
 %description
@@ -67,7 +67,7 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
-* Thu Mar 17 2005 Mihai Ibanescu <misa@redhat.com> 2.4-101
+* Thu Mar 17 2005 Mihai Ibanescu <misa@redhat.com> 2.4-102
 - changed package to noarch
 
 * Mon Mar 14 2005 Mihai Ibanescu <misa@redhat.com> 2.4-100
