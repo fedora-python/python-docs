@@ -17,6 +17,7 @@ Release: 100
 License: PSF - see LICENSE
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
+BuildArch: noarch
 
 Patch4: python-2.3-nowhatsnew.patch
 Patch17: python-2.4-tex-fix.patch
