@@ -67,5 +67,8 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Thu Mar 17 2005 Mihai Ibanescu <misa@redhat.com> 2.4-101
+- changed package to noarch
+
 * Mon Mar 14 2005 Mihai Ibanescu <misa@redhat.com> 2.4-100
 - split the doc building step into a separate source rpm
