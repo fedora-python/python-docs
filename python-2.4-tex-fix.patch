@@ -1,0 +1,46 @@
+--- Python-2.4/Doc/texinputs/howto.cls.tex-fix	2004-03-31 03:08:34.000000000 -0500
++++ Python-2.4/Doc/texinputs/howto.cls	2005-03-14 09:30:13.000000000 -0500
+@@ -55,10 +55,16 @@
+     % changes \\ to ', ' (comma-space), making it pass muster for
+     % generating document info in the PDF file.
+     \def\\{, }
+-    \pdfinfo{
+-      /Author (\@author)
+-      /Title (\@title)
+-    }
++    \ifx\pdfoutput\relax
++    \else
++      \ifcase\pdfoutput
++      \else
++        \pdfinfo{%
++          /Author (\@author)
++          /Title (\@title)
++        }
++      \fi
++    \fi
+   }}
+   \begin{flushright}
+     {\rm\Huge\py@HeaderFamily \@title} \par
+--- Python-2.4/Doc/texinputs/manual.cls.tex-fix	2005-03-14 09:32:50.000000000 -0500
++++ Python-2.4/Doc/texinputs/manual.cls	2005-03-14 09:34:20.000000000 -0500
+@@ -69,10 +69,16 @@
+       % changes \\ to ', ' (comma-space), making it pass muster for
+       % generating document info in the PDF file.
+       \def\\{, }
+-      \pdfinfo{
+-        /Author (\@author)
+-        /Title (\@title)
+-      }
++      \ifx\pdfoutput\relax
++      \else
++        \ifcase\pdfoutput
++        \else
++          \pdfinfo{%
++            /Author (\@author)
++            /Title (\@title)
++          }
++        \fi
++      \fi
+     }}
+     \begin{flushright}%
+       {\rm\Huge\py@HeaderFamily \@title \par}%
