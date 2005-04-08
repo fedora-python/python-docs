@@ -12,8 +12,8 @@
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
-Version: %{pybasever}
-Release: 102
+Version: %{pybasever}.1
+Release: 1
 License: PSF - see LICENSE
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -67,6 +67,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Fri Apr  8 2005 Mihai Ibanescu <misa@redhat.com> 2.4.1-1
+- updated to 2.4.1
+
 * Thu Mar 17 2005 Mihai Ibanescu <misa@redhat.com> 2.4-102
 - changed package to noarch
 
