@@ -12,7 +12,7 @@
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
-Version: %{pybasever}.1
+Version: %{pybasever}.2
 Release: 1
 License: PSF - see LICENSE
 Group: Documentation
@@ -67,6 +67,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Wed Nov 16 2005 Mihai Ibanescu <misa@redhat.com> 2.4.2-1
+- updated to 2.4.2
+
 * Fri Apr  8 2005 Mihai Ibanescu <misa@redhat.com> 2.4.1-1
 - updated to 2.4.1
 
