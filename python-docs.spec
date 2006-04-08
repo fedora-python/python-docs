@@ -12,8 +12,8 @@
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
-Version: %{pybasever}.2
-Release: 1.1
+Version: %{pybasever}.3
+Release: 1
 License: PSF - see LICENSE
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -67,6 +67,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Sat Apr  8 2006 Mihai Ibanescu <misa@redhat.com> 2.4.3-1
+- updated to 2.4.3
+
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
 
