@@ -8,11 +8,11 @@
 %define python python
 %endif
 
-%define pybasever 2.4
+%define pybasever 2.5
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
-Version: %{pybasever}.4
+Version: %{pybasever}
 Release: 1%{?dist}
 License: PSF - see LICENSE
 Group: Documentation
@@ -67,6 +67,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Tue Dec 12 2006 Jeremy Katz <katzj@redhat.com> - 2.5-1
+- update to 2.5
+
 * Tue Oct 24 2006 Jeremy Katz <katzj@redhat.com> - 2.4.4-1
 - update to 2.4.4
 
