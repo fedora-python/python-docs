@@ -8,7 +8,7 @@
 %define python python
 %endif
 
-%define pybasever 2.5
+%define pybasever 2.5.1
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
@@ -67,6 +67,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Sun Jun 03 2007 Florian La Roche <laroche@redhat.com> - 2.5.1-1
+- update to 2.5.1
+
 * Tue Dec 12 2006 Jeremy Katz <katzj@redhat.com> - 2.5-1
 - update to 2.5
 
