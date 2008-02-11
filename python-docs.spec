@@ -13,7 +13,7 @@
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: PSF - see LICENSE
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -58,6 +58,8 @@ popd
 %install
 [ -d $RPM_BUILD_ROOT ] && rm -fr $RPM_BUILD_ROOT
 
+mkdir $RPM_BUILD_ROOT
+
 %clean
 rm -fr $RPM_BUILD_ROOT
 
@@ -67,6 +69,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Mon Feb 11 2008 Jame Antill <james.antill@redhat.com> - 2.5.1-2
+- mkdir a build root to keep recent rpm/mock happy.
+
 * Sun Jun 03 2007 Florian La Roche <laroche@redhat.com> - 2.5.1-1
 - update to 2.5.1
 
