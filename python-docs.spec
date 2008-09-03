@@ -13,8 +13,8 @@
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 2%{?dist}
-License: PSF - see LICENSE
+Release: 3%{?dist}
+License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 BuildArch: noarch
@@ -69,6 +69,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Wed Sep  3 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.5.1-3
+- fix license tag
+
 * Mon Feb 11 2008 Jame Antill <james.antill@redhat.com> - 2.5.1-2
 - mkdir a build root to keep recent rpm/mock happy.
 
