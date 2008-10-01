@@ -8,12 +8,12 @@
 %define python python
 %endif
 
-%define pybasever 2.5.1
+%define pybasever 2.5.2
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -69,6 +69,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/html
 
 %changelog
+* Wed Oct  1 2008 Jame Antill <james.antill@redhat.com> - 2.5.2-1
+- Move to 2.5.2 like python itself.
+
 * Wed Sep  3 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.5.1-3
 - fix license tag
 
