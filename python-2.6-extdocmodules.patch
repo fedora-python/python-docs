@@ -1,0 +1,12 @@
+diff -up Python-2.6/Doc/Makefile.ext Python-2.6/Doc/Makefile
+--- Python-2.6/Doc/Makefile.ext	2008-11-29 15:06:38.000000000 -0500
++++ Python-2.6/Doc/Makefile	2008-11-29 15:07:14.000000000 -0500
+@@ -51,7 +51,7 @@ update: checkout
+ 	svn update tools/jinja
+ 	svn update tools/pygments
+ 
+-build: checkout
++build:
+ 	mkdir -p build/$(BUILDER) build/doctrees
+ 	$(PYTHON) tools/sphinx-build.py $(ALLSPHINXOPTS)
+ 	@echo

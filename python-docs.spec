@@ -8,7 +8,7 @@
 %define python python
 %endif
 
-%define pybasever 2.5.2
+%define pybasever 2.6
 
 Summary: Documentation for the Python programming language.
 Name: %{python}-docs
@@ -19,8 +19,9 @@ Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 BuildArch: noarch
 
-Patch4: python-2.3-nowhatsnew.patch
-Patch17: python-2.4-tex-fix.patch
+Patch4: python-2.6-nowhatsnew.patch
+#Patch17: python-2.4-tex-fix.patch
+Patch18: python-2.6-extdocmodules.patch
 
 Requires: %{python} = %{version}
 %if %{main_python}
@@ -29,7 +30,8 @@ Provides: python2-docs = %{version}
 %endif
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
-BuildPrereq: tetex-latex, %{python}, latex2html
+BuildRequires: %{python} python-sphinx python-docutils python-jinja
+BuildRequires: python-pygments
 URL: http://www.python.org/
 
 %description
@@ -44,15 +46,15 @@ for the Python language.
 %setup -q -n Python-%{version}
 
 %patch4 -p1 -b .nowhatsnew
-%patch17 -p1 -b .tex-fix
+#%%patch17 -p1 -b .tex-fix
+%patch18 -p1 -b .extdocmodules
 
 %build
 topdir=`pwd`
 
 pushd Doc
-python_bin=$(which %{python})
-make PYTHON=$python_bin
-rm html/index.html.in Makefile* info/Makefile tools/sgmlconv/Makefile
+make html
+#rm html/index.html.in Makefile* info/Makefile tools/sgmlconv/Makefile
 popd
 
 %install
@@ -66,9 +68,12 @@ rm -fr $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,755)
 %doc Misc/NEWS  Misc/README Misc/cheatsheet 
-%doc Misc/HISTORY Doc/html
+%doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 2.6-1
+- Update to 2.6
+
 * Wed Oct  1 2008 Jame Antill <james.antill@redhat.com> - 2.5.2-1
 - Move to 2.5.2 like python itself.
 
