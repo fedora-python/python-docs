@@ -10,17 +10,16 @@
 
 %define pybasever 2.6
 
-Summary: Documentation for the Python programming language.
+Summary: Documentation for the Python programming language
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 BuildArch: noarch
 
 Patch4: python-2.6-nowhatsnew.patch
-#Patch17: python-2.4-tex-fix.patch
 Patch18: python-2.6-extdocmodules.patch
 
 Requires: %{python} = %{version}
@@ -29,7 +28,8 @@ Obsoletes: python2-docs
 Provides: python2-docs = %{version}
 %endif
 
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+
 BuildRequires: %{python} python-sphinx python-docutils python-jinja
 BuildRequires: python-pygments
 URL: http://www.python.org/
@@ -46,19 +46,16 @@ for the Python language.
 %setup -q -n Python-%{version}
 
 %patch4 -p1 -b .nowhatsnew
-#%%patch17 -p1 -b .tex-fix
 %patch18 -p1 -b .extdocmodules
 
 %build
 topdir=`pwd`
 
-pushd Doc
-make html
+make -C Doc html
 #rm html/index.html.in Makefile* info/Makefile tools/sgmlconv/Makefile
-popd
 
 %install
-[ -d $RPM_BUILD_ROOT ] && rm -fr $RPM_BUILD_ROOT
+rm -fr $RPM_BUILD_ROOT
 
 mkdir $RPM_BUILD_ROOT
 
@@ -66,11 +63,14 @@ mkdir $RPM_BUILD_ROOT
 rm -fr $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,755)
+%defattr(-,root,root,-)
 %doc Misc/NEWS  Misc/README Misc/cheatsheet 
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Wed May 06 2009 Roman Rakus <rrakus@redhat.com> - 2.6-3
+- Spec file cleanup (#226341)
+
 * Thu Feb 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
