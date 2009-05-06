@@ -49,15 +49,13 @@ for the Python language.
 %patch18 -p1 -b .extdocmodules
 
 %build
-topdir=`pwd`
-
 make -C Doc html
 #rm html/index.html.in Makefile* info/Makefile tools/sgmlconv/Makefile
 
 %install
 rm -fr $RPM_BUILD_ROOT
 
-mkdir $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT
 
 %clean
 rm -fr $RPM_BUILD_ROOT
