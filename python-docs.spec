@@ -13,7 +13,7 @@
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -21,6 +21,10 @@ BuildArch: noarch
 
 Patch4: python-2.6-nowhatsnew.patch
 Patch18: python-2.6-extdocmodules.patch
+
+# False import makes python-docs to be unbuildable (#511647)
+# Is fixed in python-2.6.2, but we use python-2.6 so far
+Patch19: python-2.6-import_error.patch
 
 Requires: %{python} = %{version}
 %if %{main_python}
@@ -47,6 +51,7 @@ for the Python language.
 
 %patch4 -p1 -b .nowhatsnew
 %patch18 -p1 -b .extdocmodules
+%patch19 -p1 -b .import_error
 
 %build
 make -C Doc html
@@ -66,6 +71,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Wed Jul 22 2009 Roman Rakus <rrakus@redhat.com> - 2.6-4
+- Fix import error (#511647)
+
 * Wed May 06 2009 Roman Rakus <rrakus@redhat.com> - 2.6-3
 - Spec file cleanup (#226341)
 

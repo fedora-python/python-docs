@@ -1,0 +1,12 @@
+diff -up Python-2.6/Doc/tools/sphinxext/pyspecific.py.import_error Python-2.6/Doc/tools/sphinxext/pyspecific.py
+--- Python-2.6/Doc/tools/sphinxext/pyspecific.py.import_error	2009-07-22 17:31:20.000000000 +0200
++++ Python-2.6/Doc/tools/sphinxext/pyspecific.py	2009-07-22 17:31:41.000000000 +0200
+@@ -48,7 +48,7 @@ from pprint import pformat
+ from docutils.io import StringOutput
+ from docutils.utils import new_document
+ from sphinx.builder import Builder
+-from sphinx.textwriter import TextWriter
++from sphinx.writers.text import TextWriter
+ 
+ class PydocTopicsBuilder(Builder):
+     name = 'pydoc-topics'
