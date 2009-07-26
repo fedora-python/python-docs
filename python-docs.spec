@@ -13,7 +13,7 @@
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
 Version: %{pybasever}
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -71,6 +71,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed Jul 22 2009 Roman Rakus <rrakus@redhat.com> - 2.6-4
 - Fix import error (#511647)
 
