@@ -12,8 +12,8 @@
 
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
-Version: %{pybasever}
-Release: 5%{?dist}
+Version: %{pybasever}.2
+Release: 1%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -21,10 +21,6 @@ BuildArch: noarch
 
 Patch4: python-2.6-nowhatsnew.patch
 Patch18: python-2.6-extdocmodules.patch
-
-# False import makes python-docs to be unbuildable (#511647)
-# Is fixed in python-2.6.2, but we use python-2.6 so far
-Patch19: python-2.6-import_error.patch
 
 Requires: %{python} = %{version}
 %if %{main_python}
@@ -49,9 +45,8 @@ for the Python language.
 %prep
 %setup -q -n Python-%{version}
 
-%patch4 -p1 -b .nowhatsnew
+#patch4 -p1 -b .nowhatsnew
 %patch18 -p1 -b .extdocmodules
-%patch19 -p1 -b .import_error
 
 %build
 make -C Doc html
@@ -71,6 +66,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Fri Jul 31 2009 Jame Antill <james.antill@redhat.com> - 2.6.2-1
+- Move to 2.6.2 like python itself.
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 

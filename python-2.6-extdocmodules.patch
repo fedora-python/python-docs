@@ -1,8 +1,8 @@
-diff -up Python-2.6/Doc/Makefile.ext Python-2.6/Doc/Makefile
---- Python-2.6/Doc/Makefile.ext	2008-11-29 15:06:38.000000000 -0500
-+++ Python-2.6/Doc/Makefile	2008-11-29 15:07:14.000000000 -0500
-@@ -51,7 +51,7 @@ update: checkout
- 	svn update tools/jinja
+diff -ru Python-2.6.2-orig/Doc/Makefile Python-2.6.2/Doc/Makefile
+--- Python-2.6.2-orig/Doc/Makefile	2009-07-31 10:10:04.000000000 -0400
++++ Python-2.6.2/Doc/Makefile	2009-07-31 10:11:35.000000000 -0400
+@@ -52,7 +52,7 @@
+ 	svn update tools/jinja2
  	svn update tools/pygments
  
 -build: checkout
@@ -10,3 +10,4 @@ diff -up Python-2.6/Doc/Makefile.ext Python-2.6/Doc/Makefile
  	mkdir -p build/$(BUILDER) build/doctrees
  	$(PYTHON) tools/sphinx-build.py $(ALLSPHINXOPTS)
  	@echo
+Only in Python-2.6.2/Doc: Makefile~
