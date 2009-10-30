@@ -13,7 +13,7 @@
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
 Version: %{pybasever}.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -66,6 +66,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Fri Oct 30 2009 David Malcolm <dmalcolm@redhat.com> - 2.6.4-2
+- update sources for 2.6.4
+
 * Fri Oct 30 2009 David Malcolm <dmalcolm@redhat.com> - 2.6.4-1
 - move to 2.6.4
 - drop build requirement on python-jinja; python-sphinx requires python-jinja2
