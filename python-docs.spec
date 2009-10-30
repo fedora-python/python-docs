@@ -12,7 +12,7 @@
 
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
-Version: %{pybasever}.2
+Version: %{pybasever}.4
 Release: 1%{?dist}
 License: Python
 Group: Documentation
@@ -30,7 +30,7 @@ Provides: python2-docs = %{version}
 
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRequires: %{python} python-sphinx python-docutils python-jinja
+BuildRequires: %{python} python-sphinx python-docutils
 BuildRequires: python-pygments
 URL: http://www.python.org/
 
@@ -66,6 +66,11 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Fri Oct 30 2009 David Malcolm <dmalcolm@redhat.com> - 2.6.4-1
+- move to 2.6.4
+- drop build requirement on python-jinja; python-sphinx requires python-jinja2
+(bug 532135)
+
 * Fri Jul 31 2009 Jame Antill <james.antill@redhat.com> - 2.6.2-1
 - Move to 2.6.2 like python itself.
 
