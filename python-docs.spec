@@ -12,8 +12,8 @@
 
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
-Version: %{pybasever}.4
-Release: 3%{?dist}
+Version: %{pybasever}.5
+Release: 1%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -65,6 +65,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Sat Mar 20 2010 David Malcolm <dmalcolm@redhat.com> - 2.6.5-1
+- move to 2.6.5: http://www.python.org/download/releases/2.6.5/
+
 * Fri Jan 29 2010 David Malcolm <dmalcolm@redhat.com> - 2.6.4-3
 - fix %%description (bug #559710)
 
