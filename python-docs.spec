@@ -8,11 +8,12 @@
 %define python python
 %endif
 
-%define pybasever 2.6
+%define pybasever 2.7
 
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
-Version: %{pybasever}.5
+#Version: %{pybasever}.5
+Version: %{pybasever}
 Release: 1%{?dist}
 License: Python
 Group: Documentation
@@ -65,6 +66,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Mon Aug 02 2010 Roman Rakus <rrakus@redhat.com> - 2.7-1
+- Update to 2.7
+
 * Sat Mar 20 2010 David Malcolm <dmalcolm@redhat.com> - 2.6.5-1
 - move to 2.6.5: http://www.python.org/download/releases/2.6.5/
 
