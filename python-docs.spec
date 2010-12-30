@@ -12,8 +12,8 @@
 
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
-#Version: %{pybasever}.5
-Version: %{pybasever}
+# The following needs to be in-sync with the "python" package:
+Version: 2.7.1
 Release: 1%{?dist}
 License: Python
 Group: Documentation
@@ -66,6 +66,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Thu Dec 30 2010 David Malcolm <dmalcolm@redhat.com> - 2.7.1-1
+- 2.7.1
+
 * Mon Aug 02 2010 Roman Rakus <rrakus@redhat.com> - 2.7-1
 - Update to 2.7
 
