@@ -14,7 +14,7 @@ Summary: Documentation for the Python programming language
 Name: %{python}-docs
 # The following needs to be in-sync with the "python" package:
 Version: 2.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -66,6 +66,9 @@ rm -fr $RPM_BUILD_ROOT
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Thu Dec 30 2010 David Malcolm <dmalcolm@redhat.com> - 2.7.1-1
 - 2.7.1
 
