@@ -14,7 +14,7 @@ Summary: Documentation for the Python programming language
 Name: %{python}-docs
 # The following needs to be in-sync with the "python" package:
 Version: 2.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -33,6 +33,8 @@ BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires: %{python} python-sphinx python-docutils
 BuildRequires: python-pygments
+BuildRequires: linkchecker
+
 URL: http://www.python.org/
 
 %description
@@ -50,7 +52,10 @@ for the Python language.
 
 %build
 make -C Doc html
-#rm html/index.html.in Makefile* info/Makefile tools/sgmlconv/Makefile
+
+# Work around rhbz#670493:
+cd Doc/build/html
+ln -s py-modindex.html modindex.html
 
 %install
 rm -fr $RPM_BUILD_ROOT
@@ -60,12 +65,27 @@ mkdir -p $RPM_BUILD_ROOT
 %clean
 rm -fr $RPM_BUILD_ROOT
 
+%check
+# Verify that all of the local links work (see rhbz#670493)
+#
+# (we can't check network links, as we shouldn't be making network connections
+# within a build.  Also, don't bother checking the .txt source files; some
+# contain example URLs, which don't work)
+linkchecker \
+  --ignore-url=^mailto: --ignore-url=^http --ignore-url=^ftp \
+  --ignore-url=.txt\$ \
+  Doc/build/html/index.html
+
 %files
 %defattr(-,root,root,-)
 %doc Misc/NEWS  Misc/README Misc/cheatsheet 
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Thu Aug 11 2011 David Malcolm <dmalcolm@redhat.com> - 2.7.2-2
+- fix broken link to "Global Module Index", and add a %%check, verifying the
+absence of broken links (rhbz#670493)
+
 * Wed Jun 22 2011 David Malcolm <dmalcolm@redhat.com> - 2.7.2-1
 - 2.7.2
 
