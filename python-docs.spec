@@ -14,7 +14,7 @@ Summary: Documentation for the Python programming language
 Name: %{python}-docs
 # The following needs to be in-sync with the "python" package:
 Version: 2.7.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -82,6 +82,9 @@ linkchecker \
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Thu Aug 11 2011 David Malcolm <dmalcolm@redhat.com> - 2.7.2-2
 - fix broken link to "Global Module Index", and add a %%check, verifying the
 absence of broken links (rhbz#670493)
