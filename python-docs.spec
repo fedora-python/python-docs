@@ -1,3 +1,9 @@
+%if 0%{?fedora}
+%global check_links 1
+%else
+%global check_links 0
+%endif
+
 %{!?__python_ver:%define __python_ver EMPTY}
 
 %if "%{__python_ver}" != "EMPTY"
@@ -12,9 +18,9 @@
 
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
-# The following needs to be in-sync with the "python" package:
+# The Version needs to be in-sync with the "python" package:
 Version: 2.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -33,7 +39,10 @@ BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires: %{python} python-sphinx python-docutils
 BuildRequires: python-pygments
+
+%if %{check_links}
 BuildRequires: linkchecker
+%endif
 
 URL: http://www.python.org/
 
@@ -71,10 +80,12 @@ rm -fr $RPM_BUILD_ROOT
 # (we can't check network links, as we shouldn't be making network connections
 # within a build.  Also, don't bother checking the .txt source files; some
 # contain example URLs, which don't work)
+%if %{check_links}
 linkchecker \
   --ignore-url=^mailto: --ignore-url=^http --ignore-url=^ftp \
   --ignore-url=.txt\$ \
   Doc/build/html/index.html
+%endif
 
 %files
 %defattr(-,root,root,-)
@@ -82,6 +93,10 @@ linkchecker \
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Wed May 23 2012 David Malcolm <dmalcolm@redhat.com> - 2.7.3-2
+- make link checking optional, to avoid needing to pull in linkchecker and
+its dependencies (rbhz#823930)
+
 * Fri Apr 13 2012 David Malcolm <dmalcolm@redhat.com> - 2.7.3-1
 - 2.7.3
 
