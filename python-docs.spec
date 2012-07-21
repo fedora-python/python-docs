@@ -20,7 +20,7 @@ Summary: Documentation for the Python programming language
 Name: %{python}-docs
 # The Version needs to be in-sync with the "python" package:
 Version: 2.7.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -93,6 +93,9 @@ linkchecker \
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Sat Jul 21 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Wed May 23 2012 David Malcolm <dmalcolm@redhat.com> - 2.7.3-2
 - make link checking optional, to avoid needing to pull in linkchecker and
 its dependencies (rbhz#823930)
