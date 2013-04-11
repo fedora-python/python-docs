@@ -19,8 +19,8 @@
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version: 2.7.3
-Release: 4%{?dist}
+Version: 2.7.4
+Release: 1%{?dist}
 License: Python
 Group: Documentation
 Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
@@ -93,6 +93,9 @@ linkchecker \
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Thu Apr 11 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 2.7.4-1
+- Version 2.7.4.
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
