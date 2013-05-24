@@ -19,7 +19,7 @@
 Summary: Documentation for the Python programming language
 Name: %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version: 2.7.4
+Version: 2.7.5
 Release: 1%{?dist}
 License: Python
 Group: Documentation
@@ -93,6 +93,9 @@ linkchecker \
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Fri May 24 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 2.7.5-1
+- Version 2.7.5.
+
 * Thu Apr 11 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 2.7.4-1
 - Version 2.7.4.
 
