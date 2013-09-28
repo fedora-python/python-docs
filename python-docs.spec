@@ -28,6 +28,11 @@ URL:            http://www.python.org/
 Source:         http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
 Patch4:         python-2.6-nowhatsnew.patch
 Patch18:        python-2.6-extdocmodules.patch
+# this changes the makefile so that build requires are used instead of
+# hard coded svn checkout to get sphinx
+Patch19: python-2.7-texinfomakefile.patch
+# this enables the texinfo builder
+Patch20: python-2.7-texinfobuilder.patch
 
 BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -54,18 +59,58 @@ programming language and interpreter.
 Install the python-docs package if you'd like to use the documentation
 for the Python language.
 
+%package -n python-docs-info
+Summary: Documentation for the Python programming language as info pages
+Group: Documentation
+Requires(post): info
+Requires(preun): info
+BuildRequires: texinfo
+%description -n python-docs-info
+The python-docs-info package contains documentation on the Python
+programming language and interpreter as info pages.
+
+Install the python-docs-info package if you'd like to read the
+documentation for the Python language using the info command or Emacs.
+
 %prep
 %setup -q -n Python-%{version}
 
 #patch4 -p1 -b .nowhatsnew
 %patch18 -p1 -b .extdocmodules
+%patch19 -p1 -b .texinfomakefile
+%patch20 -p1 -b .texinfobuilder
 
 %build
 make -C Doc html
 
+# build info docs
+make -C Doc texinfo
+make -C Doc/build/texinfo info
+
 # Work around rhbz#670493:
 cd Doc/build/html
 ln -s py-modindex.html modindex.html
+
+%install
+rm -fr $RPM_BUILD_ROOT
+
+mkdir -p $RPM_BUILD_ROOT
+
+# install info files
+mkdir -p %{buildroot}%{_infodir}
+cp -v Doc/build/texinfo/python.info Doc/build/texinfo/logging_flow.png \
+  %{buildroot}%{_infodir}
+
+%clean
+rm -fr $RPM_BUILD_ROOT
+
+%post -n python-docs-info
+/sbin/install-info %{_infodir}/python.info %{_infodir}/dir || :
+
+%preun -n python-docs-info
+if [ $1 = 0 ]; then
+  /sbin/install-info --delete %{_infodir}/python.info.gz %{_infodir}/dir || :
+fi
 
 %check
 # Verify that all of the local links work (see rhbz#670493)
@@ -84,7 +129,15 @@ linkchecker \
 %doc Misc/NEWS  Misc/README Misc/cheatsheet
 %doc Misc/HISTORY Doc/build/html
 
+%files -n python-docs-info
+%defattr(-,root,root,-)
+%{_infodir}/python.info.gz
+%{_infodir}/logging_flow.png.gz
+
 %changelog
+* Sun Nov 24 2013 Suvayu Ali <fatkasuvayu+linux@gmail.com> - 2.7.5-2
+- Enable Texinfo builder, add subpackage with python info pages
+
 * Fri Nov 22 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-3
 - Spec cleanup
 

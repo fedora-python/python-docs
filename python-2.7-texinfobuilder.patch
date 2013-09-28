@@ -1,0 +1,21 @@
+--- Python-2.7.5/Doc/conf.py.orig	2013-09-28 16:22:35.624179804 +0200
++++ Python-2.7.5/Doc/conf.py	2013-09-28 16:22:55.638045295 +0200
+@@ -154,6 +154,18 @@
+ # Get LaTeX to handle Unicode correctly
+ latex_elements = {'inputenc': r'\usepackage[utf8x]{inputenc}', 'utf8extra': ''}
+ 
++# Options for Texinfo output
++# --------------------------
++
++texinfo_documents = [
++    ('contents', 'python', 'Python Documentation', _stdauthor,
++     'Python', 'Python Documentation', 'Software Development'),
++]
++
++texinfo_show_urls = [
++    'footnote',
++]
++
+ # Options for the coverage checker
+ # --------------------------------
+ 
