@@ -16,35 +16,36 @@
 
 %define pybasever 2.7
 
-Summary: Documentation for the Python programming language
-Name: %{python}-docs
+Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version: 2.7.5
-Release: 2%{?dist}
-License: Python
-Group: Documentation
-Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-BuildArch: noarch
+Version:        2.7.5
+Release:        3%{?dist}
+Summary:        Documentation for the Python programming language
+Group:          Documentation
+License:        Python
+URL:            http://www.python.org/
 
-Patch4: python-2.6-nowhatsnew.patch
-Patch18: python-2.6-extdocmodules.patch
+Source:         http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
+Patch4:         python-2.6-nowhatsnew.patch
+Patch18:        python-2.6-extdocmodules.patch
 
-Requires: %{python} = %{version}
-%if %{main_python}
-Obsoletes: python2-docs
-Provides: python2-docs = %{version}
-%endif
+BuildArch:      noarch
+BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-
-BuildRequires: %{python} python-sphinx python-docutils
-BuildRequires: python-pygments
-
+BuildRequires:  %{python}
+BuildRequires:  python-docutils
+BuildRequires:  python-pygments
+BuildRequires:  python-sphinx
 %if %{check_links}
-BuildRequires: linkchecker
+BuildRequires:  linkchecker
 %endif
 
-URL: http://www.python.org/
+Requires:       %{python} = %{version}
+
+%if %{main_python}
+Obsoletes:      python2-docs
+Provides:       python2-docs = %{version}
+%endif
 
 %description
 The python-docs package contains documentation on the Python
@@ -66,14 +67,6 @@ make -C Doc html
 cd Doc/build/html
 ln -s py-modindex.html modindex.html
 
-%install
-rm -fr $RPM_BUILD_ROOT
-
-mkdir -p $RPM_BUILD_ROOT
-
-%clean
-rm -fr $RPM_BUILD_ROOT
-
 %check
 # Verify that all of the local links work (see rhbz#670493)
 #
@@ -88,11 +81,13 @@ linkchecker \
 %endif
 
 %files
-%defattr(-,root,root,-)
-%doc Misc/NEWS  Misc/README Misc/cheatsheet 
+%doc Misc/NEWS  Misc/README Misc/cheatsheet
 %doc Misc/HISTORY Doc/build/html
 
 %changelog
+* Fri Nov 22 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-3
+- Spec cleanup
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
