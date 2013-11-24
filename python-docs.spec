@@ -98,8 +98,11 @@ mkdir -p $RPM_BUILD_ROOT
 
 # install info files
 mkdir -p %{buildroot}%{_infodir}
-cp -v Doc/build/texinfo/python.info Doc/build/texinfo/logging_flow.png \
-  %{buildroot}%{_infodir}
+cp -v Doc/build/texinfo/python.info %{buildroot}%{_infodir}
+
+# edit path to image file in info page
+sed -i -e 's,logging_flow\.png,%{_infodir}/../doc/python-docs-2.7.5/html/_images/&,' \
+    %{buildroot}%{_infodir}/python.info
 
 %clean
 rm -fr $RPM_BUILD_ROOT
@@ -132,7 +135,6 @@ linkchecker \
 %files -n python-docs-info
 %defattr(-,root,root,-)
 %{_infodir}/python.info.gz
-%{_infodir}/logging_flow.png.gz
 
 %changelog
 * Sun Nov 24 2013 Suvayu Ali <fatkasuvayu+linux@gmail.com> - 2.7.5-2
