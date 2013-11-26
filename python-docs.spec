@@ -19,7 +19,7 @@
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
 Version:        2.7.5
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
@@ -59,13 +59,14 @@ programming language and interpreter.
 Install the python-docs package if you'd like to use the documentation
 for the Python language.
 
-%package -n python-docs-info
-Summary: Documentation for the Python programming language as info pages
-Group: Documentation
+%package info
+Summary:        Documentation for the Python programming language as info pages
+Group:          Documentation
 Requires(post): info
-Requires(preun): info
-BuildRequires: texinfo
-%description -n python-docs-info
+Requires(preun):info
+BuildRequires:  texinfo
+
+%description info
 The python-docs-info package contains documentation on the Python
 programming language and interpreter as info pages.
 
@@ -92,27 +93,20 @@ cd Doc/build/html
 ln -s py-modindex.html modindex.html
 
 %install
-rm -fr $RPM_BUILD_ROOT
-
-mkdir -p $RPM_BUILD_ROOT
-
 # install info files
 mkdir -p %{buildroot}%{_infodir}
 cp -v Doc/build/texinfo/python.info %{buildroot}%{_infodir}
 
 # edit path to image file in info page
-sed -i -e 's,logging_flow\.png,%{_infodir}/../doc/python-docs-2.7.5/html/_images/&,' \
+sed -i -e 's,logging_flow\.png,%{_docdir}/%{name}/html/_images/&,' \
     %{buildroot}%{_infodir}/python.info
 
-%clean
-rm -fr $RPM_BUILD_ROOT
-
-%post -n python-docs-info
+%post info
 /sbin/install-info %{_infodir}/python.info %{_infodir}/dir || :
 
-%preun -n python-docs-info
+%preun info
 if [ $1 = 0 ]; then
-  /sbin/install-info --delete %{_infodir}/python.info.gz %{_infodir}/dir || :
+/sbin/install-info --delete %{_infodir}/python.info.gz %{_infodir}/dir || :
 fi
 
 %check
@@ -132,12 +126,14 @@ linkchecker \
 %doc Misc/NEWS  Misc/README Misc/cheatsheet
 %doc Misc/HISTORY Doc/build/html
 
-%files -n python-docs-info
-%defattr(-,root,root,-)
+%files info
 %{_infodir}/python.info.gz
 
 %changelog
-* Sun Nov 24 2013 Suvayu Ali <fatkasuvayu+linux@gmail.com> - 2.7.5-2
+* Tue Nov 26 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-5
+- Small tweaks of Suvayu's patch
+
+* Sun Nov 24 2013 Suvayu Ali <fatkasuvayu+linux@gmail.com> - 2.7.5-4
 - Enable Texinfo builder, add subpackage with python info pages
 
 * Fri Nov 22 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-3
