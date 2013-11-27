@@ -16,35 +16,41 @@
 
 %define pybasever 2.7
 
-Summary: Documentation for the Python programming language
-Name: %{python}-docs
+Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version: 2.7.5
-Release: 1%{?dist}
-License: Python
-Group: Documentation
-Source: http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
-BuildArch: noarch
+Version:        2.7.5
+Release:        5%{?dist}
+Summary:        Documentation for the Python programming language
+Group:          Documentation
+License:        Python
+URL:            http://www.python.org/
 
-Patch4: python-2.6-nowhatsnew.patch
-Patch18: python-2.6-extdocmodules.patch
+Source:         http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
+Patch4:         python-2.6-nowhatsnew.patch
+Patch18:        python-2.6-extdocmodules.patch
+# this changes the makefile so that build requires are used instead of
+# hard coded svn checkout to get sphinx
+Patch19: python-2.7-texinfomakefile.patch
+# this enables the texinfo builder
+Patch20: python-2.7-texinfobuilder.patch
 
-Requires: %{python} = %{version}
-%if %{main_python}
-Obsoletes: python2-docs
-Provides: python2-docs = %{version}
-%endif
+BuildArch:      noarch
+BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-
-BuildRequires: %{python} python-sphinx python-docutils
-BuildRequires: python-pygments
-
+BuildRequires:  %{python}
+BuildRequires:  python-docutils
+BuildRequires:  python-pygments
+BuildRequires:  python-sphinx
 %if %{check_links}
-BuildRequires: linkchecker
+BuildRequires:  linkchecker
 %endif
 
-URL: http://www.python.org/
+Requires:       %{python} = %{version}
+
+%if %{main_python}
+Obsoletes:      python2-docs
+Provides:       python2-docs = %{version}
+%endif
 
 %description
 The python-docs package contains documentation on the Python
@@ -53,26 +59,55 @@ programming language and interpreter.
 Install the python-docs package if you'd like to use the documentation
 for the Python language.
 
+%package info
+Summary:        Documentation for the Python programming language as info pages
+Group:          Documentation
+Requires(post): info
+Requires(preun):info
+BuildRequires:  texinfo
+
+%description info
+The python-docs-info package contains documentation on the Python
+programming language and interpreter as info pages.
+
+Install the python-docs-info package if you'd like to read the
+documentation for the Python language using the info command or Emacs.
+
 %prep
 %setup -q -n Python-%{version}
 
 #patch4 -p1 -b .nowhatsnew
 %patch18 -p1 -b .extdocmodules
+%patch19 -p1 -b .texinfomakefile
+%patch20 -p1 -b .texinfobuilder
 
 %build
 make -C Doc html
+
+# build info docs
+make -C Doc texinfo
+make -C Doc/build/texinfo info
 
 # Work around rhbz#670493:
 cd Doc/build/html
 ln -s py-modindex.html modindex.html
 
 %install
-rm -fr $RPM_BUILD_ROOT
+# install info files
+mkdir -p %{buildroot}%{_infodir}
+cp -v Doc/build/texinfo/python.info %{buildroot}%{_infodir}
 
-mkdir -p $RPM_BUILD_ROOT
+# edit path to image file in info page
+sed -i -e 's,logging_flow\.png,%{_docdir}/%{name}/html/_images/&,' \
+    %{buildroot}%{_infodir}/python.info
 
-%clean
-rm -fr $RPM_BUILD_ROOT
+%post info
+/sbin/install-info %{_infodir}/python.info %{_infodir}/dir || :
+
+%preun info
+if [ $1 = 0 ]; then
+/sbin/install-info --delete %{_infodir}/python.info.gz %{_infodir}/dir || :
+fi
 
 %check
 # Verify that all of the local links work (see rhbz#670493)
@@ -88,11 +123,25 @@ linkchecker \
 %endif
 
 %files
-%defattr(-,root,root,-)
-%doc Misc/NEWS  Misc/README Misc/cheatsheet 
+%doc Misc/NEWS  Misc/README Misc/cheatsheet
 %doc Misc/HISTORY Doc/build/html
 
+%files info
+%{_infodir}/python.info.gz
+
 %changelog
+* Tue Nov 26 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-5
+- Small tweaks of Suvayu's patch
+
+* Sun Nov 24 2013 Suvayu Ali <fatkasuvayu+linux@gmail.com> - 2.7.5-4
+- Enable Texinfo builder, add subpackage with python info pages
+
+* Fri Nov 22 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-3
+- Spec cleanup
+
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Fri May 24 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 2.7.5-1
 - Version 2.7.5.
 
