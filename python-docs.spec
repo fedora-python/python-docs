@@ -19,7 +19,7 @@
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
 Version:        2.7.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
@@ -98,7 +98,7 @@ mkdir -p %{buildroot}%{_infodir}
 cp -v Doc/build/texinfo/python.info %{buildroot}%{_infodir}
 
 # edit path to image file in info page
-sed -i -e 's,logging_flow\.png,%{_docdir}/%{name}/html/_images/&,' \
+sed -i -e 's,logging_flow\.png,%{_pkgdocdir}/html/_images/&,' \
     %{buildroot}%{_infodir}/python.info
 
 %post info
@@ -130,6 +130,9 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Mon Dec 02 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-6
+- Used _pkgdocdir instead of _docdir
+
 * Tue Nov 26 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-5
 - Small tweaks of Suvayu's patch
 
