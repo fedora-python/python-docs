@@ -18,14 +18,14 @@
 
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version:        2.7.5
-Release:        6%{?dist}
+Version:        2.7.6
+Release:        1%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
 URL:            http://www.python.org/
 
-Source:         http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.bz2
+Source:         http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
 Patch4:         python-2.6-nowhatsnew.patch
 Patch18:        python-2.6-extdocmodules.patch
 # this changes the makefile so that build requires are used instead of
@@ -130,6 +130,9 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Wed Feb 05 2014 Tomas Radej <tradej@redhat.com> - 2.7.6-1
+- Updated to v2.7.6
+
 * Mon Dec 02 2013 Tomas Radej <tradej@redhat.com> - 2.7.5-6
 - Used _pkgdocdir instead of _docdir
 
