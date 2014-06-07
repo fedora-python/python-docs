@@ -19,7 +19,7 @@
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
 Version:        2.7.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
@@ -130,6 +130,9 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Wed Feb 05 2014 Tomas Radej <tradej@redhat.com> - 2.7.6-1
 - Updated to v2.7.6
 
