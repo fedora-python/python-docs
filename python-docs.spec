@@ -18,8 +18,8 @@
 
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version:        2.7.6
-Release:        2%{?dist}
+Version:        2.7.7
+Release:        1%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
@@ -33,6 +33,7 @@ Patch18:        python-2.6-extdocmodules.patch
 Patch19: python-2.7-texinfomakefile.patch
 # this enables the texinfo builder
 Patch20: python-2.7-texinfobuilder.patch
+Patch21: sphinx-remove-refcounting.patch
 
 BuildArch:      noarch
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
@@ -80,6 +81,7 @@ documentation for the Python language using the info command or Emacs.
 %patch18 -p1 -b .extdocmodules
 %patch19 -p1 -b .texinfomakefile
 %patch20 -p1 -b .texinfobuilder
+%patch21 -p1
 
 %build
 make -C Doc html
@@ -130,6 +132,9 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Tue Jun 10 2014 Matej Stuchlik <mstuchli@redhat.com> - 2.7.7-1
+- Update to 2.7.7
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 

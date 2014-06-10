@@ -1,0 +1,12 @@
+diff -up Python-2.7.7/Doc/conf.py.orig Python-2.7.7/Doc/conf.py
+--- Python-2.7.7/Doc/conf.py.orig	2014-06-10 10:56:11.251662863 +0200
++++ Python-2.7.7/Doc/conf.py	2014-06-10 10:56:16.258701583 +0200
+@@ -13,7 +13,7 @@ sys.path.append(os.path.abspath('tools/s
+ # General configuration
+ # ---------------------
+ 
+-extensions = ['sphinx.ext.refcounting', 'sphinx.ext.coverage',
++extensions = ['sphinx.ext.coverage',
+               'sphinx.ext.doctest', 'pyspecific']
+ templates_path = ['tools/sphinxext']
+ 
