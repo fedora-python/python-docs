@@ -18,7 +18,7 @@
 
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
-Version:        2.7.9
+Version:        2.7.10
 Release:        1%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
@@ -126,6 +126,9 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Wed May 27 2015 Matej Stuchlik <mstuchli@redhat.com> - 2.7.10-1
+- Update to 2.7.10
+
 * Fri Dec 12 2014 Matej Stuchlik <mstuchli@redhat.com> - 2.7.9-1
 - Update to 2.7.9
 
