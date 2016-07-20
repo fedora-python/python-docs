@@ -1,6 +1,6 @@
---- Python-2.7.5/Doc/conf.py.orig	2013-09-28 16:22:35.624179804 +0200
-+++ Python-2.7.5/Doc/conf.py	2013-09-28 16:22:55.638045295 +0200
-@@ -154,6 +154,18 @@
+--- Python-2.7.12/Doc/conf.py~	2016-06-25 16:49:30.000000000 -0500
++++ Python-2.7.12/Doc/conf.py	2016-07-20 13:40:03.438295455 -0500
+@@ -135,6 +135,17 @@
  # Get LaTeX to handle Unicode correctly
  latex_elements = {'inputenc': r'\usepackage[utf8x]{inputenc}', 'utf8extra': ''}
  
@@ -15,7 +15,6 @@
 +texinfo_show_urls = [
 +    'footnote',
 +]
-+
- # Options for the coverage checker
- # --------------------------------
  
+ # Options for Epub output
+ # -----------------------
