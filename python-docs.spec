@@ -19,7 +19,7 @@
 Name:           %{python}-docs
 # The Version needs to be in-sync with the "python" package:
 Version:        2.7.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
@@ -46,7 +46,6 @@ BuildRequires:  linkchecker
 Requires:       %{python} = %{version}
 
 %if %{main_python}
-Obsoletes:      python2-docs
 Provides:       python2-docs = %{version}
 %endif
 
@@ -126,6 +125,9 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Mon Sep 05 2016 Charalampos Stratakis <cstratak@redhat.com> - 2.7.12-2
+- Remove unversioned Obsoletes.
+
 * Wed Jul 20 2016 Jon Ciesla <limburgher@gmail.com> - 2.7.12-1
 - Update to 2.7.12.
 
