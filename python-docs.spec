@@ -1,31 +1,15 @@
-%if 0%{?fedora}
-%global check_links 1
-%else
-%global check_links 0
-%endif
-
-%{!?__python_ver:%define __python_ver EMPTY}
-
-%if "%{__python_ver}" != "EMPTY"
-%define main_python 0
-%define python python%{__python_ver}
-%else
-%define main_python 1
-%define python python
-%endif
-
 %define pybasever 2.7
 
-Name:           %{python}-docs
+Name:           python-docs
 # The Version needs to be in-sync with the "python" package:
 Version:        2.7.12
 Release:        2%{?dist}
 Summary:        Documentation for the Python programming language
 Group:          Documentation
 License:        Python
-URL:            http://www.python.org/
+URL:            https://www.python.org/
 
-Source:         http://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
+Source:         https://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
 # this changes the makefile so that build requires are used instead of
 # hard coded svn checkout to get sphinx
 Patch19: python-2.7-texinfomakefile.patch
@@ -33,21 +17,16 @@ Patch19: python-2.7-texinfomakefile.patch
 Patch20: python-2.7-texinfobuilder.patch
 
 BuildArch:      noarch
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRequires:  %{python}
+BuildRequires:  python2
 BuildRequires:  python-docutils
 BuildRequires:  python-pygments
-BuildRequires:  python-sphinx
-%if %{check_links}
+BuildRequires:  python2-sphinx
 BuildRequires:  linkchecker
-%endif
 
-Requires:       %{python} = %{version}
+Requires:       python2 = %{version}
 
-%if %{main_python}
 Provides:       python2-docs = %{version}
-%endif
 
 %description
 The python-docs package contains documentation on the Python
@@ -110,12 +89,10 @@ fi
 # (we can't check network links, as we shouldn't be making network connections
 # within a build.  Also, don't bother checking the .txt source files; some
 # contain example URLs, which don't work)
-%if %{check_links}
 linkchecker \
   --ignore-url=^mailto: --ignore-url=^http --ignore-url=^ftp \
   --ignore-url=.txt\$ \
   Doc/build/html/index.html
-%endif
 
 %files
 %doc Misc/NEWS  Misc/README Misc/cheatsheet
