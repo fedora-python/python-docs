@@ -1,10 +1,15 @@
+# Macro for using the version-release where python-docs got
+# renamed to python2-docs at Fedora 26, in order to ensure clean upgrade path.
+# It should be removed along with the obsoletes at Fedora 28.
+%define obs 2.7.13-1
+
 %define pybasever 2.7
 
-Name:           python-docs
-# The Version needs to be in-sync with the "python" package:
-Version:        2.7.12
-Release:        2%{?dist}
-Summary:        Documentation for the Python programming language
+Name:           python2-docs
+# The Version needs to be in-sync with the "python2" package:
+Version:        2.7.13
+Release:        1%{?dist}
+Summary:        Documentation for the Python 2 programming language
 Group:          Documentation
 License:        Python
 URL:            https://www.python.org/
@@ -26,28 +31,32 @@ BuildRequires:  linkchecker
 
 Requires:       python2 = %{version}
 
-Provides:       python2-docs = %{version}
+Provides:		python-docs = %{version}-%{release}
+Obsoletes:		python-docs < %{obs}
 
 %description
-The python-docs package contains documentation on the Python
+The python2-docs package contains documentation on the Python 2
 programming language and interpreter.
 
-Install the python-docs package if you'd like to use the documentation
-for the Python language.
+Install the python2-docs package if you'd like to use the documentation
+for the Python 2 language.
 
 %package info
-Summary:        Documentation for the Python programming language as info pages
+Summary:        Documentation for the Python 2 programming language as info pages
 Group:          Documentation
 Requires(post): info
 Requires(preun):info
 BuildRequires:  texinfo
 
+Provides:		python-docs-info = %{version}-%{release}
+Obsoletes:		python-docs-info < %{obs}
+
 %description info
-The python-docs-info package contains documentation on the Python
+The python2-docs-info package contains documentation on the Python 2
 programming language and interpreter as info pages.
 
-Install the python-docs-info package if you'd like to read the
-documentation for the Python language using the info command or Emacs.
+Install the python2-docs-info package if you'd like to read the
+documentation for the Python 2 language using the info command or Emacs.
 
 %prep
 %setup -q -n Python-%{version}
@@ -102,6 +111,10 @@ linkchecker \
 %{_infodir}/python.info.gz
 
 %changelog
+* Wed Jan 11 2017 Charalampos Stratakis <cstratak@redhat.com> - 2.7.13-1
+- Update to 2.7.13
+- Rename package to python2-docs
+
 * Mon Sep 05 2016 Charalampos Stratakis <cstratak@redhat.com> - 2.7.12-2
 - Remove unversioned Obsoletes.
 
