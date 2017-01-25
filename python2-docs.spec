@@ -5,31 +5,31 @@
 
 %define pybasever 2.7
 
-Name:           python2-docs
+Name:			python2-docs
 # The Version needs to be in-sync with the "python2" package:
-Version:        2.7.13
-Release:        1%{?dist}
-Summary:        Documentation for the Python 2 programming language
-Group:          Documentation
-License:        Python
-URL:            https://www.python.org/
+Version:		2.7.13
+Release:		1%{?dist}
+Summary:		Documentation for the Python 2 programming language
+Group:			Documentation
+License:		Python
+URL:			https://www.python.org/
 
-Source:         https://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
+Source:			https://www.python.org/ftp/python/%{version}/Python-%{version}.tar.xz
 # this changes the makefile so that build requires are used instead of
 # hard coded svn checkout to get sphinx
 Patch19: python-2.7-texinfomakefile.patch
 # this enables the texinfo builder
 Patch20: python-2.7-texinfobuilder.patch
 
-BuildArch:      noarch
+BuildArch:		noarch
 
-BuildRequires:  python2
-BuildRequires:  python-docutils
-BuildRequires:  python-pygments
-BuildRequires:  python2-sphinx
-BuildRequires:  linkchecker
+BuildRequires:	python2
+BuildRequires:	python-docutils
+BuildRequires:	python-pygments
+BuildRequires:	python2-sphinx
+BuildRequires:	linkchecker
 
-Requires:       python2 = %{version}
+Requires:		python2 = %{version}
 
 Provides:		python-docs = %{version}-%{release}
 Obsoletes:		python-docs < %{obs}
@@ -42,11 +42,11 @@ Install the python2-docs package if you'd like to use the documentation
 for the Python 2 language.
 
 %package info
-Summary:        Documentation for the Python 2 programming language as info pages
-Group:          Documentation
-Requires(post): info
+Summary:		Documentation for the Python 2 programming language as info pages
+Group:			Documentation
+Requires(post):	info
 Requires(preun):info
-BuildRequires:  texinfo
+BuildRequires:	texinfo
 
 Provides:		python-docs-info = %{version}-%{release}
 Obsoletes:		python-docs-info < %{obs}
@@ -70,6 +70,8 @@ make -C Doc html
 # build info docs
 make -C Doc texinfo
 make -C Doc/build/texinfo info
+ # Remove the sphinx-build leftovers
+ rm -fr Doc/build/html/.{doctrees,buildinfo}
 
 # Work around rhbz#670493:
 cd Doc/build/html
@@ -104,11 +106,13 @@ linkchecker \
   Doc/build/html/index.html
 
 %files
-%doc Misc/NEWS  Misc/README Misc/cheatsheet
-%doc Misc/HISTORY Doc/build/html
+%doc		Misc/NEWS  Misc/README Misc/cheatsheet
+%doc		Misc/HISTORY Doc/build/html
+%license	LICENSE
 
 %files info
 %{_infodir}/python.info.gz
+%license	LICENSE
 
 %changelog
 * Wed Jan 11 2017 Charalampos Stratakis <cstratak@redhat.com> - 2.7.13-1
